@@ -57,12 +57,15 @@ fun MyApp() {
             when {
                 showAbout -> AboutScreen(onClose = { showAbout = false })
                 currentScreen == "dada" -> LatihanDadaScreen(onBack = { currentScreen = "home" })
-                else -> HomeScreen(onLatihanDadaClick = { currentScreen = "dada" })
+                currentScreen == "bahu" -> LatihanBahuScreen(onBack = { currentScreen = "home" })
+                else -> HomeScreen(
+                    onLatihanDadaClick = { currentScreen = "dada" },
+                    onLatihanBahuClick = { currentScreen = "bahu" }
+                )
             }
         }
     }
 }
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppBarWithMenu(onAboutClick: () -> Unit, onBackToHome: () -> Unit) {
@@ -109,11 +112,11 @@ fun AppBarWithMenu(onAboutClick: () -> Unit, onBackToHome: () -> Unit) {
 }
 
 @Composable
-fun HomeScreen(onLatihanDadaClick: () -> Unit) {
+fun HomeScreen(onLatihanDadaClick: () -> Unit, onLatihanBahuClick: () -> Unit) {
     Greeting(name = "Bimo")
     Spacer(modifier = Modifier.height(16.dp))
     BarItem("Latihan Dada", onClick = onLatihanDadaClick)
-    BarItem("Latihan Bahu")
+    BarItem("Latihan Bahu", onClick = onLatihanBahuClick)
     BarItem("Latihan Tangan")
     BarItem("Latihan Kaki")
     BarItem("Latihan Perut")
