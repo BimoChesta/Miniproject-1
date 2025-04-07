@@ -60,12 +60,14 @@ fun MyApp() {
                 currentScreen == "bahu" -> LatihanBahuScreen(onBack = { currentScreen = "home" })
                 currentScreen == "tangan" -> LatihanTanganScreen(onBack = { currentScreen = "home" })
                 currentScreen == "kaki" -> LatihanKakiScreen(onBack = { currentScreen = "home" })
+                currentScreen == "perut" -> LatihanPerutScreen(onBack = { currentScreen = "home" })
 
                 else -> HomeScreen(
                     onLatihanDadaClick = { currentScreen = "dada" },
                     onLatihanBahuClick = { currentScreen = "bahu" },
                     onLatihanTanganClick = { currentScreen = "tangan" },
-                    onLatihanKakiClick = { currentScreen = "kaki" }
+                    onLatihanKakiClick = { currentScreen = "kaki" },
+                    onLatihanPerutClick = { currentScreen = "perut" }
                 )
             }
         }
@@ -118,15 +120,15 @@ fun AppBarWithMenu(onAboutClick: () -> Unit, onBackToHome: () -> Unit) {
 
 @Composable
 fun HomeScreen(onLatihanDadaClick: () -> Unit, onLatihanBahuClick: () -> Unit,
-               onLatihanTanganClick: () -> Unit, onLatihanKakiClick: () -> Unit)
+               onLatihanTanganClick: () -> Unit, onLatihanKakiClick: () -> Unit, onLatihanPerutClick: () -> Unit)
 {
     Greeting(name = "Bimo")
     Spacer(modifier = Modifier.height(16.dp))
     BarItem("Latihan Dada", onClick = onLatihanDadaClick)
     BarItem("Latihan Bahu", onClick = onLatihanBahuClick)
     BarItem("Latihan Tangan", onClick = onLatihanTanganClick)
-    BarItem("Latihan Kaki")
-    BarItem("Latihan Perut")
+    BarItem("Latihan Kaki", onClick = onLatihanKakiClick)
+    BarItem("Latihan Perut", onClick = onLatihanPerutClick)
 }
 
 @Composable
