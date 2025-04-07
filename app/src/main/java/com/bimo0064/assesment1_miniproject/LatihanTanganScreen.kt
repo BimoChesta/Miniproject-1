@@ -13,20 +13,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LatihanDadaScreen(onBack: () -> Unit) {
+fun LatihanTanganScreen(onBack: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Latihan Dada", fontWeight = FontWeight.Bold)
+        Text("Latihan Tangan", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
         Spacer(modifier = Modifier.height(24.dp))
 
-        BarLevelDada("Pemula")
-        BarLevelDada("Menengah")
-        BarLevelDada("Sulit")
+        BarLevelTangan("Pemula")
+        BarLevelTangan("Menengah")
+        BarLevelTangan("Sulit")
 
         Spacer(modifier = Modifier.height(24.dp))
 
@@ -37,7 +37,7 @@ fun LatihanDadaScreen(onBack: () -> Unit) {
 }
 
 @Composable
-fun BarLevelDada(title: String, onClick: () -> Unit = {}) {
+fun BarLevelTangan(title: String, onClick: () -> Unit = {}) {
     Box(
         modifier = Modifier
             .width(350.dp)
