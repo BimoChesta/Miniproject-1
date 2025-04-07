@@ -4,7 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -14,6 +14,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun LatihanDadaScreen(onBack: () -> Unit) {
+    var selectedLevel by remember { mutableStateOf("") }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -24,20 +26,38 @@ fun LatihanDadaScreen(onBack: () -> Unit) {
         Spacer(modifier = Modifier.height(8.dp))
         Spacer(modifier = Modifier.height(24.dp))
 
-        BarLevelDada("Pemula")
-        BarLevelDada("Menengah")
-        BarLevelDada("Sulit")
+        if (selectedLevel.isEmpty()) {
+            BarLevelDada("Pemula") { selectedLevel = "Pemula" }
+            BarLevelDada("Menengah") { selectedLevel = "Menengah" }
+            BarLevelDada("Sulit") { selectedLevel = "Sulit" }
+        }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Button(onClick = onBack) {
-            Text("Kembali")
+        when (selectedLevel) {
+            "Pemula" -> PemulaScreen(onBack) { selectedLevel = "" }
+            "Menengah" -> MenengahScreen(onBack) { selectedLevel = "" }
+            "Sulit" -> SulitScreen(onBack) { selectedLevel = "" }
+            else -> {}
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Box(
+            modifier = Modifier
+                .background(Color.Black)
+                .fillMaxWidth()
+                .padding(vertical = 12.dp)
+                .clickable { onBack() },
+            contentAlignment = Alignment.Center
+        ) {
+            Text("Kembali", color = Color.White, fontWeight = FontWeight.Bold)
         }
     }
 }
 
 @Composable
-fun BarLevelDada(title: String, onClick: () -> Unit = {}) {
+fun BarLevelDada(title: String, onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .width(350.dp)
@@ -53,5 +73,53 @@ fun BarLevelDada(title: String, onClick: () -> Unit = {}) {
             color = Color.White,
             fontWeight = FontWeight.Bold
         )
+    }
+}
+
+@Composable
+fun PemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
+    Column(
+        modifier = Modifier.fillMaxSize().padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text("Latihan Pemula", fontWeight = FontWeight.Bold)
+        Spacer(modifier = Modifier.height(8.dp))
+        Text("Latihan yang disarankan: Push-up, Dumbbell Press, Chest Stretch.")
+        Spacer(modifier = Modifier.height(24.dp))
+        Button(onClick = onClose) {
+            Text("Kembali ke Pilihan")
+        }
+    }
+}
+
+@Composable
+fun MenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
+    Column(
+        modifier = Modifier.fillMaxSize().padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text("Latihan Menengah", fontWeight = FontWeight.Bold)
+        Spacer(modifier = Modifier.height(8.dp))
+        Text("Latihan yang disarankan: Incline Dumbbell Press, Cable Fly, Dips.")
+        Spacer(modifier = Modifier.height(24.dp))
+        Button(onClick = onClose) {
+            Text("Kembali ke Pilihan")
+        }
+    }
+}
+
+@Composable
+fun SulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
+    Column(
+        modifier = Modifier.fillMaxSize().padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text("Latihan Sulit", fontWeight = FontWeight.Bold)
+        Spacer(modifier = Modifier.height(8.dp))
+        Text("Latihan yang disarankan: Barbell Bench Press, Plyometric Push-ups, Weighted Dips.")
+        Spacer(modifier = Modifier.height(24.dp))
+        Button(onClick = onClose) {
+            Text("Kembali ke Pilihan")
+        }
     }
 }
