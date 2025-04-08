@@ -22,7 +22,7 @@ fun LatihanBahuScreen(onBack: () -> Unit) {
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Latihan Dada", fontWeight = FontWeight.Bold)
+        Text("Latihan Bahu", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
         Spacer(modifier = Modifier.height(24.dp))
 
