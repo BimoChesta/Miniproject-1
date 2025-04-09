@@ -84,7 +84,10 @@ fun KakiPemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
     ) {
         Text("Latihan Pemula", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
-        Text("Latihan yang disarankan: Push-up, Dumbbell Press, Chest Stretch.")
+        Text(
+            text = "1. Pemula\n\n- Bodyweight Squat\n\n- Lunges\n\n- Glute Bridges\n\n- Calf Raises",
+            fontWeight = FontWeight.Bold
+        )
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")
@@ -100,7 +103,10 @@ fun KakiMenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
     ) {
         Text("Latihan Menengah", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
-        Text("Latihan yang disarankan: Incline Dumbbell Press, Cable Fly, Dips.")
+        Text(
+            text = "2. Menengah\n\n- Jump Squats\n\n- Bulgarian Split Squat\n\n- Step-ups\n\n- Single-leg Deadlift",
+            fontWeight = FontWeight.Bold
+        )
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")
@@ -116,7 +122,10 @@ fun KakiSulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
     ) {
         Text("Latihan Sulit", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
-        Text("Latihan yang disarankan: Barbell Bench Press, Plyometric Push-ups, Weighted Dips.")
+        Text(
+            text = "3. Sulit\n\n- Pistol Squat\n\n- Box Jumps\n\n- Barbell Squats\n\n- Sumo Deadlift",
+            fontWeight = FontWeight.Bold
+        )
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")

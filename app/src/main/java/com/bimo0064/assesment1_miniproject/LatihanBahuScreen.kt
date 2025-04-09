@@ -84,7 +84,10 @@ fun BahuPemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
     ) {
         Text("Latihan Pemula", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
-        Text("Latihan yang disarankan: Push-up, Dumbbell Press, Chest Stretch.")
+        Text(
+            text = "1. Shoulder Press dengan Botol\n\n2. Lateral Raise Tanpa Beban\n\n3. Front Raise Tanpa Beban\n\n4. Shoulder Stretch",
+            fontWeight = FontWeight.Bold
+        )
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")
@@ -100,7 +103,10 @@ fun BahuMenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
     ) {
         Text("Latihan Menengah", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
-        Text("Latihan yang disarankan: Incline Dumbbell Press, Cable Fly, Dips.")
+        Text(
+            text = "1. Pike Push-up\n\n2. Plank to Downward Dog\n\n3. Wall Walk\n\n4. Arm Circles",
+            fontWeight = FontWeight.Bold
+        )
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")
@@ -116,7 +122,10 @@ fun BahuSulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
     ) {
         Text("Latihan Sulit", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
-        Text("Latihan yang disarankan: Barbell Bench Press, Plyometric Push-ups, Weighted Dips.")
+        Text(
+            text = "1. Handstand Push-up\n\n2. Clap Push-up\n\n3. Dive Bomber Push-up\n\n4. Single-arm Plank",
+            fontWeight = FontWeight.Bold
+        )
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")

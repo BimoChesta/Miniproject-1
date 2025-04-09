@@ -84,7 +84,10 @@ fun PerutPemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
     ) {
         Text("Latihan Pemula", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
-        Text("Latihan yang disarankan: Push-up, Dumbbell Press, Chest Stretch.")
+        Text(
+            text = "\n\n1. Crunches\n\n2. Leg Raises\n\n3. Plank (30 detik)\n\n4. Bicycle Crunches",
+            fontWeight = FontWeight.Bold
+        )
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")
@@ -100,7 +103,10 @@ fun PerutMenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
     ) {
         Text("Latihan Menengah", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
-        Text("Latihan yang disarankan: Incline Dumbbell Press, Cable Fly, Dips.")
+        Text(
+            text = "\n\n1. Russian Twists\n\n2. Plank (1 menit)\n\n3. Mountain Climbers\n\n4. Flutter Kicks",
+            fontWeight = FontWeight.Bold
+        )
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")
@@ -116,7 +122,10 @@ fun PerutSulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
     ) {
         Text("Latihan Sulit", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
-        Text("Latihan yang disarankan: Barbell Bench Press, Plyometric Push-ups, Weighted Dips.")
+        Text(
+            text = "\n\n1. Hanging Leg Raises\n\n2. V-ups\n\n3. Plank to Push-up\n\n4. Ab Rollouts",
+            fontWeight = FontWeight.Bold
+        )
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")
