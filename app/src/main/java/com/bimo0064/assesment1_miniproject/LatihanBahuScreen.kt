@@ -96,7 +96,7 @@ fun BarLevelBahu(title: String, onClick: () -> Unit) {
 @Composable
 fun BahuLevelScreen(title: String, exercises: String, onClose: () -> Unit) {
     var inputTime by remember { mutableStateOf("") }
-    var remainingTime by remember { mutableStateOf(0) }
+    var remainingTime by remember { mutableIntStateOf(0) }
     var isRunning by remember { mutableStateOf(false) }
     var errorText by remember { mutableStateOf("") }
 

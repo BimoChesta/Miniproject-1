@@ -3,8 +3,7 @@ package com.bimo0064.assesment1_miniproject
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.res.Configuration
-import android.os.Build
-import java.util.*
+import java.util.Locale
 
 class LocaleContextWrapper(base: Context) : ContextWrapper(base) {
     companion object {
@@ -13,12 +12,8 @@ class LocaleContextWrapper(base: Context) : ContextWrapper(base) {
             Locale.setDefault(newLocale)
 
             val config = Configuration(context.resources.configuration)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                config.setLocale(newLocale)
-                config.setLayoutDirection(newLocale)
-            } else {
-                config.locale = newLocale
-            }
+            config.setLocale(newLocale)
+            config.setLayoutDirection(newLocale)
 
             return LocaleContextWrapper(context.createConfigurationContext(config))
         }

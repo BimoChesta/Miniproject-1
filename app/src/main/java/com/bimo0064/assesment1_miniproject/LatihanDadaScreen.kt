@@ -37,9 +37,9 @@ fun LatihanDadaScreen(onBack: () -> Unit) {
         Spacer(modifier = Modifier.height(24.dp))
 
         when (selectedLevel) {
-            "Pemula" -> PemulaScreen(onBack) { selectedLevel = "" }
-            "Menengah" -> MenengahScreen(onBack) { selectedLevel = "" }
-            "Sulit" -> SulitScreen(onBack) { selectedLevel = "" }
+            "Pemula" -> PemulaScreen { selectedLevel = "" }
+            "Menengah" -> MenengahScreen { selectedLevel = "" }
+            "Sulit" -> SulitScreen { selectedLevel = "" }
         }
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -82,7 +82,7 @@ fun BarLevelDada(title: String, onClick: () -> Unit) {
 }
 
 @Composable
-fun PemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
+fun PemulaScreen(onClose: () -> Unit) {
     WorkoutLevelScreen(
         title = stringResource(id = R.string.beginner),
         exercises = stringResource(id = R.string.beginner_exercises),
@@ -91,7 +91,7 @@ fun PemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
 }
 
 @Composable
-fun MenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
+fun MenengahScreen(onClose: () -> Unit) {
     WorkoutLevelScreen(
         title = stringResource(id = R.string.intermediate),
         exercises = stringResource(id = R.string.intermediate_exercises),
@@ -100,7 +100,7 @@ fun MenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
 }
 
 @Composable
-fun SulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
+fun SulitScreen(onClose: () -> Unit) {
     WorkoutLevelScreen(
         title = stringResource(id = R.string.hard),
         exercises = stringResource(id = R.string.hard_exercises),
@@ -115,7 +115,7 @@ fun WorkoutLevelScreen(
     onClose: () -> Unit
 ) {
     var inputTime by remember { mutableStateOf("") }
-    var remainingTime by remember { mutableStateOf(0) }
+    var remainingTime by remember { mutableIntStateOf(0) }
     var isRunning by remember { mutableStateOf(false) }
     var errorText by remember { mutableStateOf("") }
 
