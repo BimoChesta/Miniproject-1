@@ -18,6 +18,8 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import com.bimo0064.assesment1_miniproject.R
 import com.bimo0064.assesment1_miniproject.ui.theme.Assesment1_miniprojectTheme
 
 class MainActivity : ComponentActivity() {
@@ -58,7 +60,10 @@ fun MyApp() {
                 showAbout -> AboutScreen(onClose = { showAbout = false })
                 currentScreen == "dada" -> LatihanDadaScreen(onBack = { currentScreen = "home" })
                 currentScreen == "bahu" -> LatihanBahuScreen(onBack = { currentScreen = "home" })
-                currentScreen == "tangan" -> LatihanTanganScreen(onBack = { currentScreen = "home" })
+                currentScreen == "tangan" -> LatihanTanganScreen(onBack = {
+                    currentScreen = "home"
+                })
+
                 currentScreen == "kaki" -> LatihanKakiScreen(onBack = { currentScreen = "home" })
                 currentScreen == "perut" -> LatihanPerutScreen(onBack = { currentScreen = "home" })
 
@@ -73,6 +78,7 @@ fun MyApp() {
         }
     }
 }
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppBarWithMenu(onAboutClick: () -> Unit, onBackToHome: () -> Unit) {
@@ -119,9 +125,13 @@ fun AppBarWithMenu(onAboutClick: () -> Unit, onBackToHome: () -> Unit) {
 }
 
 @Composable
-fun HomeScreen(onLatihanDadaClick: () -> Unit, onLatihanBahuClick: () -> Unit,
-               onLatihanTanganClick: () -> Unit, onLatihanKakiClick: () -> Unit, onLatihanPerutClick: () -> Unit)
-{
+fun HomeScreen(
+    onLatihanDadaClick: () -> Unit,
+    onLatihanBahuClick: () -> Unit,
+    onLatihanTanganClick: () -> Unit,
+    onLatihanKakiClick: () -> Unit,
+    onLatihanPerutClick: () -> Unit
+) {
     Greeting(name = "Bimo")
     Spacer(modifier = Modifier.height(16.dp))
     BarItem("Latihan Dada", onClick = onLatihanDadaClick)
@@ -168,13 +178,15 @@ fun AboutScreen(onClose: () -> Unit) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        Text(text = "Tentang Aplikasi", fontWeight = FontWeight.Bold)
+        Text(
+            text = stringResource(id = R.string.about_app_title),
+            fontWeight = FontWeight.Bold
+        )
         Spacer(modifier = Modifier.height(8.dp))
-        Text(text = "Aplikasi ini berjudul Home Workout yang dirancang oleh : \n\nBimo Chesta Adabi\n607062300064" +
-                "\n\nuntuk membantu para pengguna untuk melakukan fitness dari rumah.")
+        Text(text = stringResource(id = R.string.about_app_description))
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = "Kembali",
+            text = stringResource(id = R.string.back),
             color = Color.Blue,
             modifier = Modifier.clickable(onClick = onClose)
         )

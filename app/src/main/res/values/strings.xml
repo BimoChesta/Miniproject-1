@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Assesment1_miniproject</string>
+    <string name="about_app_title">Tentang Aplikasi</string>
+    <string name="about_app_description">
+        Aplikasi ini berjudul Home Workout yang dirancang oleh :
+        \n\nBimo Chesta Adabi
+        \n607062300064
+        \n\nuntuk membantu para pengguna untuk melakukan fitness dari rumah.
+    </string>
+    <string name="back">Kembali</string>
 </resources>
