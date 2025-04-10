@@ -140,7 +140,7 @@ fun AppBarWithMenu(
             }
         },
         colors = TopAppBarDefaults.smallTopAppBarColors(
-            containerColor = Color.Black
+            containerColor = Color.LightGray
         )
     )
 }
