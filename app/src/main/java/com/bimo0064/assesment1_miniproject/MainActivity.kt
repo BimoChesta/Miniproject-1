@@ -168,7 +168,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Ayo mulai latihan hari ini",
         modifier = modifier.padding(16.dp),
-        color = Color.Black,
+        color = Color.Gray,
         fontWeight = FontWeight.Bold
     )
 }

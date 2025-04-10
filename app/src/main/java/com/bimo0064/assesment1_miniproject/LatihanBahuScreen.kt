@@ -78,8 +78,10 @@ fun BarLevelBahu(title: String, onClick: () -> Unit) {
 
 @Composable
 fun BahuPemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
+    var inputTime by remember { mutableStateOf("") }
     var remainingTime by remember { mutableStateOf(0) }
     var isRunning by remember { mutableStateOf(false) }
+    var errorText by remember { mutableStateOf("") }
 
     LaunchedEffect(isRunning) {
         if (isRunning) {
@@ -107,24 +109,54 @@ fun BahuPemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
         }
 
         Spacer(modifier = Modifier.height(24.dp))
-        Text("Waktu Istirahat: ${remainingTime}s")
+
+        OutlinedTextField(
+            value = inputTime,
+            onValueChange = {
+                if (it.all { char -> char.isDigit() }) {
+                    inputTime = it
+                }
+            },
+            label = { Text("Waktu Istirahat (detik)") },
+            singleLine = true,
+            isError = errorText.isNotEmpty(),
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        if (errorText.isNotEmpty()) {
+            Text(errorText, color = MaterialTheme.colorScheme.error)
+        }
+
         Spacer(modifier = Modifier.height(8.dp))
+
         Button(
             onClick = {
-                remainingTime = 60
-                isRunning = true
+                val input = inputTime.toIntOrNull()
+                if (input == null || input < 1 || input > 299) {
+                    errorText = "Masukkan waktu antara 1 dan 299 detik"
+                } else {
+                    remainingTime = input
+                    isRunning = true
+                    errorText = ""
+                }
             },
             enabled = !isRunning
         ) {
             Text("Mulai Istirahat")
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text("Waktu Istirahat: ${remainingTime}s")
     }
 }
 
 @Composable
 fun BahuMenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
+    var inputTime by remember { mutableStateOf("") }
     var remainingTime by remember { mutableStateOf(0) }
     var isRunning by remember { mutableStateOf(false) }
+    var errorText by remember { mutableStateOf("") }
 
     LaunchedEffect(isRunning) {
         if (isRunning) {
@@ -152,24 +184,54 @@ fun BahuMenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
         }
 
         Spacer(modifier = Modifier.height(24.dp))
-        Text("Waktu Istirahat: ${remainingTime}s")
+
+        OutlinedTextField(
+            value = inputTime,
+            onValueChange = {
+                if (it.all { char -> char.isDigit() }) {
+                    inputTime = it
+                }
+            },
+            label = { Text("Waktu Istirahat (detik)") },
+            singleLine = true,
+            isError = errorText.isNotEmpty(),
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        if (errorText.isNotEmpty()) {
+            Text(errorText, color = MaterialTheme.colorScheme.error)
+        }
+
         Spacer(modifier = Modifier.height(8.dp))
+
         Button(
             onClick = {
-                remainingTime = 60
-                isRunning = true
+                val input = inputTime.toIntOrNull()
+                if (input == null || input < 1 || input > 299) {
+                    errorText = "Masukkan waktu antara 1 dan 299 detik"
+                } else {
+                    remainingTime = input
+                    isRunning = true
+                    errorText = ""
+                }
             },
             enabled = !isRunning
         ) {
             Text("Mulai Istirahat")
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text("Waktu Istirahat: ${remainingTime}s")
     }
 }
 
 @Composable
 fun BahuSulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
+    var inputTime by remember { mutableStateOf("") }
     var remainingTime by remember { mutableStateOf(0) }
     var isRunning by remember { mutableStateOf(false) }
+    var errorText by remember { mutableStateOf("") }
 
     LaunchedEffect(isRunning) {
         if (isRunning) {
@@ -197,16 +259,44 @@ fun BahuSulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
         }
 
         Spacer(modifier = Modifier.height(24.dp))
-        Text("Waktu Istirahat: ${remainingTime}s")
+
+        OutlinedTextField(
+            value = inputTime,
+            onValueChange = {
+                if (it.all { char -> char.isDigit() }) {
+                    inputTime = it
+                }
+            },
+            label = { Text("Waktu Istirahat (detik)") },
+            singleLine = true,
+            isError = errorText.isNotEmpty(),
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        if (errorText.isNotEmpty()) {
+            Text(errorText, color = MaterialTheme.colorScheme.error)
+        }
+
         Spacer(modifier = Modifier.height(8.dp))
+
         Button(
             onClick = {
-                remainingTime = 60
-                isRunning = true
+                val input = inputTime.toIntOrNull()
+                if (input == null || input < 1 || input > 299) {
+                    errorText = "Masukkan waktu antara 1 dan 299 detik"
+                } else {
+                    remainingTime = input
+                    isRunning = true
+                    errorText = ""
+                }
             },
             enabled = !isRunning
         ) {
             Text("Mulai Istirahat")
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text("Waktu Istirahat: ${remainingTime}s")
     }
 }

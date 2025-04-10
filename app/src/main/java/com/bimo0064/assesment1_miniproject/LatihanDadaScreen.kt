@@ -78,8 +78,10 @@ fun BarLevelDada(title: String, onClick: () -> Unit) {
 
 @Composable
 fun PemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
+    var inputTime by remember { mutableStateOf("") }
     var remainingTime by remember { mutableStateOf(0) }
     var isRunning by remember { mutableStateOf(false) }
+    var errorText by remember { mutableStateOf("") }
 
     LaunchedEffect(isRunning) {
         if (isRunning) {
@@ -104,31 +106,62 @@ fun PemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(24.dp))
+
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")
         }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Text("Waktu Istirahat: ${remainingTime}s")
+        OutlinedTextField(
+            value = inputTime,
+            onValueChange = {
+                if (it.all { char -> char.isDigit() }) {
+                    inputTime = it
+                }
+            },
+            label = { Text("Waktu Istirahat (detik)") },
+            singleLine = true,
+            isError = errorText.isNotEmpty(),
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        if (errorText.isNotEmpty()) {
+            Text(errorText, color = MaterialTheme.colorScheme.error)
+        }
+
         Spacer(modifier = Modifier.height(8.dp))
+
         Button(
             onClick = {
-                remainingTime = 60
-                isRunning = true
+                val input = inputTime.toIntOrNull()
+                if (input == null || input < 1 || input > 299) {
+                    errorText = "Masukkan waktu antara 1 dan 299 detik"
+                } else {
+                    remainingTime = input
+                    isRunning = true
+                    errorText = ""
+                }
             },
             enabled = !isRunning
         ) {
             Text("Mulai Istirahat")
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text("Waktu Istirahat: ${remainingTime}s")
     }
 }
 
 
+
 @Composable
 fun MenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
+    var inputTime by remember { mutableStateOf("") }
     var remainingTime by remember { mutableStateOf(0) }
     var isRunning by remember { mutableStateOf(false) }
+    var errorText by remember { mutableStateOf("") }
 
     LaunchedEffect(isRunning) {
         if (isRunning) {
@@ -141,37 +174,73 @@ fun MenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
     }
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         horizontalAlignment = Alignment.Start
     ) {
         Text("Menengah", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
-        Text("1. Decline Push up \n\n2. Wide Grip Push up \n\n3. Plyometric Push up \n\n4. Archer Push up", fontWeight = FontWeight.Bold)
+        Text(
+            "1. Decline Push up \n\n2. Wide Grip Push up \n\n3. Plyometric Push up \n\n4. Archer Push up",
+            fontWeight = FontWeight.Bold
+        )
         Spacer(modifier = Modifier.height(24.dp))
+
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")
         }
 
         Spacer(modifier = Modifier.height(24.dp))
-        Text("Waktu Istirahat: ${remainingTime}s")
+
+        OutlinedTextField(
+            value = inputTime,
+            onValueChange = {
+                if (it.all { char -> char.isDigit() }) {
+                    inputTime = it
+                }
+            },
+            label = { Text("Waktu Istirahat (detik)") },
+            singleLine = true,
+            isError = errorText.isNotEmpty(),
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        if (errorText.isNotEmpty()) {
+            Text(errorText, color = MaterialTheme.colorScheme.error)
+        }
+
         Spacer(modifier = Modifier.height(8.dp))
+
         Button(
             onClick = {
-                remainingTime = 60
-                isRunning = true
+                val input = inputTime.toIntOrNull()
+                if (input == null || input < 1 || input > 299) {
+                    errorText = "Masukkan waktu antara 1 dan 299 detik"
+                } else {
+                    remainingTime = input
+                    isRunning = true
+                    errorText = ""
+                }
             },
             enabled = !isRunning
         ) {
             Text("Mulai Istirahat")
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text("Waktu Istirahat: ${remainingTime}s")
     }
 }
 
 
 @Composable
 fun SulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
+    var inputTime by remember { mutableStateOf("") }
     var remainingTime by remember { mutableStateOf(0) }
     var isRunning by remember { mutableStateOf(false) }
+    var errorText by remember { mutableStateOf("") }
 
     LaunchedEffect(isRunning) {
         if (isRunning) {
@@ -184,28 +253,62 @@ fun SulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
     }
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         horizontalAlignment = Alignment.Start
     ) {
         Text("Sulit", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
-        Text("1. One-arm Push up \n\n2. Clap Push up \n\n3. Spiderman Push up \n\n4. Handstand Push up", fontWeight = FontWeight.Bold)
+        Text(
+            "1. One-arm Push up \n\n2. Clap Push up \n\n3. Spiderman Push up \n\n4. Handstand Push up",
+            fontWeight = FontWeight.Bold
+        )
         Spacer(modifier = Modifier.height(24.dp))
+
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")
         }
 
         Spacer(modifier = Modifier.height(24.dp))
-        Text("Waktu Istirahat: ${remainingTime}s")
+
+        OutlinedTextField(
+            value = inputTime,
+            onValueChange = {
+                if (it.all { char -> char.isDigit() }) {
+                    inputTime = it
+                }
+            },
+            label = { Text("Waktu Istirahat (detik)") },
+            singleLine = true,
+            isError = errorText.isNotEmpty(),
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        if (errorText.isNotEmpty()) {
+            Text(errorText, color = MaterialTheme.colorScheme.error)
+        }
+
         Spacer(modifier = Modifier.height(8.dp))
+
         Button(
             onClick = {
-                remainingTime = 60
-                isRunning = true
+                val input = inputTime.toIntOrNull()
+                if (input == null || input < 1 || input > 299) {
+                    errorText = "Masukkan waktu antara 1 dan 299 detik"
+                } else {
+                    remainingTime = input
+                    isRunning = true
+                    errorText = ""
+                }
             },
             enabled = !isRunning
         ) {
             Text("Mulai Istirahat")
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text("Waktu Istirahat: ${remainingTime}s")
     }
 }
