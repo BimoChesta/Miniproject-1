@@ -78,48 +78,134 @@ fun BarLevelDada(title: String, onClick: () -> Unit) {
 
 @Composable
 fun PemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
+    var remainingTime by remember { mutableStateOf(0) }
+    var isRunning by remember { mutableStateOf(false) }
+
+    LaunchedEffect(isRunning) {
+        if (isRunning) {
+            while (remainingTime > 0) {
+                kotlinx.coroutines.delay(1000)
+                remainingTime--
+            }
+            isRunning = false
+        }
+    }
+
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         horizontalAlignment = Alignment.Start
     ) {
         Text("Pemula", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
-        Text("1. Push up \n\n 2. Incline Push up \n\n 3. Kneeling Push up \n\n 4. Chest Stretch", fontWeight = FontWeight.Bold )
+        Text(
+            "1. Push up \n\n2. Incline Push up \n\n3. Kneeling Push up \n\n4. Chest Stretch",
+            fontWeight = FontWeight.Bold
+        )
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")
         }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text("Waktu Istirahat: ${remainingTime}s")
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(
+            onClick = {
+                remainingTime = 60
+                isRunning = true
+            },
+            enabled = !isRunning
+        ) {
+            Text("Mulai Istirahat")
+        }
     }
 }
 
+
 @Composable
 fun MenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
+    var remainingTime by remember { mutableStateOf(0) }
+    var isRunning by remember { mutableStateOf(false) }
+
+    LaunchedEffect(isRunning) {
+        if (isRunning) {
+            while (remainingTime > 0) {
+                kotlinx.coroutines.delay(1000)
+                remainingTime--
+            }
+            isRunning = false
+        }
+    }
+
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.Start
     ) {
         Text("Menengah", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
-        Text("1. Decline Push up \n\n 2. Wide Grip Push up \n\n 3. Plyometric Push up \n\n 4. Archer Push up", fontWeight = FontWeight.Bold )
+        Text("1. Decline Push up \n\n2. Wide Grip Push up \n\n3. Plyometric Push up \n\n4. Archer Push up", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")
         }
+
+        Spacer(modifier = Modifier.height(24.dp))
+        Text("Waktu Istirahat: ${remainingTime}s")
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(
+            onClick = {
+                remainingTime = 60
+                isRunning = true
+            },
+            enabled = !isRunning
+        ) {
+            Text("Mulai Istirahat")
+        }
     }
 }
 
+
 @Composable
 fun SulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
+    var remainingTime by remember { mutableStateOf(0) }
+    var isRunning by remember { mutableStateOf(false) }
+
+    LaunchedEffect(isRunning) {
+        if (isRunning) {
+            while (remainingTime > 0) {
+                kotlinx.coroutines.delay(1000)
+                remainingTime--
+            }
+            isRunning = false
+        }
+    }
+
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.Start
     ) {
         Text("Sulit", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
-        Text("1. One-arm Push up \n\n 2. Clap Push up \n\n 3. Spiderman Push up \n\n 4. Handstand Push up", fontWeight = FontWeight.Bold )
+        Text("1. One-arm Push up \n\n2. Clap Push up \n\n3. Spiderman Push up \n\n4. Handstand Push up", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+        Text("Waktu Istirahat: ${remainingTime}s")
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(
+            onClick = {
+                remainingTime = 60
+                isRunning = true
+            },
+            enabled = !isRunning
+        ) {
+            Text("Mulai Istirahat")
         }
     }
 }

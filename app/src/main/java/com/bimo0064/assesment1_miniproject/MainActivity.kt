@@ -134,7 +134,7 @@ fun HomeScreen(onLatihanDadaClick: () -> Unit, onLatihanBahuClick: () -> Unit,
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
-        text = "Hai $name!, ingin latihan apa hari ini?",
+        text = "Ayo mulai latihan hari ini",
         modifier = modifier.padding(16.dp),
         color = Color.Black,
         fontWeight = FontWeight.Bold
@@ -170,7 +170,8 @@ fun AboutScreen(onClose: () -> Unit) {
     ) {
         Text(text = "Tentang Aplikasi", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
-        Text(text = "Aplikasi ini dirancang Oleh\nBimo Chesta Adabi\n607062300064\nUntuk membantu pengguna melakukan fitness dari rumah.")
+        Text(text = "Aplikasi ini berjudul Home Workout yang dirancang oleh : \n\nBimo Chesta Adabi\n607062300064" +
+                "\n\nuntuk membantu para pengguna untuk melakukan fitness dari rumah.")
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = "Kembali",

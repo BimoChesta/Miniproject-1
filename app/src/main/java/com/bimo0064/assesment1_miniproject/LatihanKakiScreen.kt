@@ -11,6 +11,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
 
 @Composable
 fun LatihanKakiScreen(onBack: () -> Unit) {
@@ -38,7 +39,6 @@ fun LatihanKakiScreen(onBack: () -> Unit) {
             "Pemula" -> KakiPemulaScreen(onBack) { selectedLevel = "" }
             "Menengah" -> KakiMenengahScreen(onBack) { selectedLevel = "" }
             "Sulit" -> KakiSulitScreen(onBack) { selectedLevel = "" }
-            else -> {}
         }
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -78,6 +78,19 @@ fun BarLevelKaki(title: String, onClick: () -> Unit) {
 
 @Composable
 fun KakiPemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
+    var remainingTime by remember { mutableStateOf(0) }
+    var isRunning by remember { mutableStateOf(false) }
+
+    LaunchedEffect(isRunning) {
+        if (isRunning) {
+            while (remainingTime > 0) {
+                delay(1000)
+                remainingTime--
+            }
+            isRunning = false
+        }
+    }
+
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.Start
@@ -92,11 +105,37 @@ fun KakiPemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")
         }
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text("Waktu Istirahat: ${remainingTime}s")
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(
+            onClick = {
+                remainingTime = 60
+                isRunning = true
+            },
+            enabled = !isRunning
+        ) {
+            Text("Mulai Istirahat")
+        }
     }
 }
 
 @Composable
 fun KakiMenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
+    var remainingTime by remember { mutableStateOf(0) }
+    var isRunning by remember { mutableStateOf(false) }
+
+    LaunchedEffect(isRunning) {
+        if (isRunning) {
+            while (remainingTime > 0) {
+                delay(1000)
+                remainingTime--
+            }
+            isRunning = false
+        }
+    }
+
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.Start
@@ -111,11 +150,37 @@ fun KakiMenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")
         }
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text("Waktu Istirahat: ${remainingTime}s")
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(
+            onClick = {
+                remainingTime = 60
+                isRunning = true
+            },
+            enabled = !isRunning
+        ) {
+            Text("Mulai Istirahat")
+        }
     }
 }
 
 @Composable
 fun KakiSulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
+    var remainingTime by remember { mutableStateOf(0) }
+    var isRunning by remember { mutableStateOf(false) }
+
+    LaunchedEffect(isRunning) {
+        if (isRunning) {
+            while (remainingTime > 0) {
+                delay(1000)
+                remainingTime--
+            }
+            isRunning = false
+        }
+    }
+
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.Start
@@ -123,12 +188,25 @@ fun KakiSulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
         Text("Sulit", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "1. Pistol Squat\n\n 2. Box Jumps\n\n 3. Barbell Squats\n\n4. Sumo Deadlift",
+            text = "1. Pistol Squat\n\n2. Box Jumps\n\n3. Barbell Squats\n\n4. Sumo Deadlift",
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")
+        }
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text("Waktu Istirahat: ${remainingTime}s")
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(
+            onClick = {
+                remainingTime = 60
+                isRunning = true
+            },
+            enabled = !isRunning
+        ) {
+            Text("Mulai Istirahat")
         }
     }
 }

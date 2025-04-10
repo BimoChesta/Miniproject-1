@@ -11,6 +11,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
 
 @Composable
 fun LatihanTanganScreen(onBack: () -> Unit) {
@@ -38,7 +39,6 @@ fun LatihanTanganScreen(onBack: () -> Unit) {
             "Pemula" -> TanganPemulaScreen(onBack) { selectedLevel = "" }
             "Menengah" -> TanganMenengahScreen(onBack) { selectedLevel = "" }
             "Sulit" -> TanganSulitScreen(onBack) { selectedLevel = "" }
-            else -> {}
         }
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -78,6 +78,19 @@ fun BarLevelTangan(title: String, onClick: () -> Unit) {
 
 @Composable
 fun TanganPemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
+    var remainingTime by remember { mutableStateOf(0) }
+    var isRunning by remember { mutableStateOf(false) }
+
+    LaunchedEffect(isRunning) {
+        if (isRunning) {
+            while (remainingTime > 0) {
+                delay(1000)
+                remainingTime--
+            }
+            isRunning = false
+        }
+    }
+
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.Start
@@ -92,11 +105,37 @@ fun TanganPemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")
         }
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text("Waktu Istirahat: ${remainingTime}s")
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(
+            onClick = {
+                remainingTime = 60
+                isRunning = true
+            },
+            enabled = !isRunning
+        ) {
+            Text("Mulai Istirahat")
+        }
     }
 }
 
 @Composable
 fun TanganMenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
+    var remainingTime by remember { mutableStateOf(0) }
+    var isRunning by remember { mutableStateOf(false) }
+
+    LaunchedEffect(isRunning) {
+        if (isRunning) {
+            while (remainingTime > 0) {
+                delay(1000)
+                remainingTime--
+            }
+            isRunning = false
+        }
+    }
+
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.Start
@@ -111,11 +150,37 @@ fun TanganMenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")
         }
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text("Waktu Istirahat: ${remainingTime}s")
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(
+            onClick = {
+                remainingTime = 60
+                isRunning = true
+            },
+            enabled = !isRunning
+        ) {
+            Text("Mulai Istirahat")
+        }
     }
 }
 
 @Composable
 fun TanganSulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
+    var remainingTime by remember { mutableStateOf(0) }
+    var isRunning by remember { mutableStateOf(false) }
+
+    LaunchedEffect(isRunning) {
+        if (isRunning) {
+            while (remainingTime > 0) {
+                delay(1000)
+                remainingTime--
+            }
+            isRunning = false
+        }
+    }
+
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.Start
@@ -129,6 +194,19 @@ fun TanganSulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")
+        }
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text("Waktu Istirahat: ${remainingTime}s")
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(
+            onClick = {
+                remainingTime = 60
+                isRunning = true
+            },
+            enabled = !isRunning
+        ) {
+            Text("Mulai Istirahat")
         }
     }
 }
