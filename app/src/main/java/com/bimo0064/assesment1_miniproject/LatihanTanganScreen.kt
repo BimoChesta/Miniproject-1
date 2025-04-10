@@ -80,12 +80,12 @@ fun BarLevelTangan(title: String, onClick: () -> Unit) {
 fun TanganPemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
-        Text("Latihan Pemula", fontWeight = FontWeight.Bold)
+        Text("Pemula", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "1. Pemula\n\n- Wall Push-up\n\n- Tricep Dips\n\n- Close Grip Push-up\n\n- Arm Circles",
+            text = "1. Wall Push-up\n\n2. Tricep Dips\n\n3. Close Grip Push-up\n\n4. Arm Circles",
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(24.dp))
@@ -99,12 +99,12 @@ fun TanganPemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
 fun TanganMenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
-        Text("Latihan Menengah", fontWeight = FontWeight.Bold)
+        Text("Menengah", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "2. Menengah\n\n- Diamond Push-up\n\n- Pike Push-up\n\n- Plank to Push-up\n\n- Elevated Push-up",
+            text = "1. Diamond Push-up\n\n2. Pike Push-up\n\n3. Plank to Push-up\n\n4. Elevated Push-up",
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(24.dp))
@@ -118,12 +118,12 @@ fun TanganMenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
 fun TanganSulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
-        Text("Latihan Sulit", fontWeight = FontWeight.Bold)
+        Text("Sulit", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "3. Sulit\n\n- One-arm Push-up\n\n- Clap Push-up\n\n- Archer Push-up\n\n- Handstand Push-up",
+            text = "1. One-arm Push-up\n\n2. Clap Push-up\n\n3. Archer Push-up\n\n4. Handstand Push-up",
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(24.dp))

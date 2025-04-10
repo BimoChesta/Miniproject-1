@@ -80,9 +80,9 @@ fun BarLevelDada(title: String, onClick: () -> Unit) {
 fun PemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
-        Text("Latihan Pemula", fontWeight = FontWeight.Bold)
+        Text("Pemula", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
         Text("1. Push up \n\n 2. Incline Push up \n\n 3. Kneeling Push up \n\n 4. Chest Stretch", fontWeight = FontWeight.Bold )
         Spacer(modifier = Modifier.height(24.dp))
@@ -96,11 +96,11 @@ fun PemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
 fun MenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
-        Text("Latihan Menengah", fontWeight = FontWeight.Bold)
+        Text("Menengah", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
-        Text("1. Decline Push up \n\n 2. Wide Grip Push up \n\n 3.Plyometric Push up \n\n 4. Archer Push up", fontWeight = FontWeight.Bold )
+        Text("1. Decline Push up \n\n 2. Wide Grip Push up \n\n 3. Plyometric Push up \n\n 4. Archer Push up", fontWeight = FontWeight.Bold )
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")
@@ -112,11 +112,11 @@ fun MenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
 fun SulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
-        Text("Latihan Sulit", fontWeight = FontWeight.Bold)
+        Text("Sulit", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
-        Text("1. One-arm Push up \n\n 2. Clap Push up \n\n 3.Spiderman Push up \n\n 4.Handstand Push up", fontWeight = FontWeight.Bold )
+        Text("1. One-arm Push up \n\n 2. Clap Push up \n\n 3. Spiderman Push up \n\n 4. Handstand Push up", fontWeight = FontWeight.Bold )
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = onClose) {
             Text("Kembali ke Pilihan")

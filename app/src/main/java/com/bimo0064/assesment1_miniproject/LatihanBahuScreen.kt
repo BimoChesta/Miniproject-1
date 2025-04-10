@@ -80,9 +80,9 @@ fun BarLevelBahu(title: String, onClick: () -> Unit) {
 fun BahuPemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
-        Text("Latihan Pemula", fontWeight = FontWeight.Bold)
+        Text("Pemula", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = "1. Shoulder Press dengan Botol\n\n2. Lateral Raise Tanpa Beban\n\n3. Front Raise Tanpa Beban\n\n4. Shoulder Stretch",
@@ -99,9 +99,9 @@ fun BahuPemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
 fun BahuMenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
-        Text("Latihan Menengah", fontWeight = FontWeight.Bold)
+        Text("Menengah", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = "1. Pike Push-up\n\n2. Plank to Downward Dog\n\n3. Wall Walk\n\n4. Arm Circles",
@@ -118,9 +118,9 @@ fun BahuMenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
 fun BahuSulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
-        Text("Latihan Sulit", fontWeight = FontWeight.Bold)
+        Text("Sulit", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = "1. Handstand Push-up\n\n2. Clap Push-up\n\n3. Dive Bomber Push-up\n\n4. Single-arm Plank",

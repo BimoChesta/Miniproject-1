@@ -80,12 +80,12 @@ fun BarLevelKaki(title: String, onClick: () -> Unit) {
 fun KakiPemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
-        Text("Latihan Pemula", fontWeight = FontWeight.Bold)
+        Text("Pemula", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "1. Pemula\n\n- Bodyweight Squat\n\n- Lunges\n\n- Glute Bridges\n\n- Calf Raises",
+            text = "1. Bodyweight Squat\n\n2. Lunges\n\n3. Glute Bridges\n\n4. Calf Raises",
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(24.dp))
@@ -99,12 +99,12 @@ fun KakiPemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
 fun KakiMenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
-        Text("Latihan Menengah", fontWeight = FontWeight.Bold)
+        Text("Menengah", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "2. Menengah\n\n- Jump Squats\n\n- Bulgarian Split Squat\n\n- Step-ups\n\n- Single-leg Deadlift",
+            text = "1. Jump Squats\n\n2. Bulgarian Split Squat\n\n3. Step-ups\n\n4. Single-leg Deadlift",
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(24.dp))
@@ -118,12 +118,12 @@ fun KakiMenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
 fun KakiSulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
-        Text("Latihan Sulit", fontWeight = FontWeight.Bold)
+        Text("Sulit", fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "3. Sulit\n\n- Pistol Squat\n\n- Box Jumps\n\n- Barbell Squats\n\n- Sumo Deadlift",
+            text = "1. Pistol Squat\n\n 2. Box Jumps\n\n 3. Barbell Squats\n\n4. Sumo Deadlift",
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(24.dp))
