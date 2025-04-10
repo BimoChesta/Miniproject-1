@@ -39,55 +39,62 @@ class MainActivity : ComponentActivity() {
 fun MyApp() {
     var showAbout by remember { mutableStateOf(false) }
     var currentScreen by remember { mutableStateOf("home") }
+    var isDarkTheme by remember { mutableStateOf(false) }
 
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        topBar = {
-            AppBarWithMenu(
-                onAboutClick = { showAbout = true },
-                onBackToHome = { currentScreen = "home" }
-            )
-        }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxSize()
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            when {
-                showAbout -> AboutScreen(onClose = { showAbout = false })
-                currentScreen == "dada" -> LatihanDadaScreen(onBack = { currentScreen = "home" })
-                currentScreen == "bahu" -> LatihanBahuScreen(onBack = { currentScreen = "home" })
-                currentScreen == "tangan" -> LatihanTanganScreen(onBack = {
-                    currentScreen = "home"
-                })
-
-                currentScreen == "kaki" -> LatihanKakiScreen(onBack = { currentScreen = "home" })
-                currentScreen == "perut" -> LatihanPerutScreen(onBack = { currentScreen = "home" })
-
-                else -> HomeScreen(
-                    onLatihanDadaClick = { currentScreen = "dada" },
-                    onLatihanBahuClick = { currentScreen = "bahu" },
-                    onLatihanTanganClick = { currentScreen = "tangan" },
-                    onLatihanKakiClick = { currentScreen = "kaki" },
-                    onLatihanPerutClick = { currentScreen = "perut" }
+    Assesment1_miniprojectTheme(darkTheme = isDarkTheme) {
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            topBar = {
+                AppBarWithMenu(
+                    onAboutClick = { showAbout = true },
+                    onBackToHome = { currentScreen = "home" },
+                    isDarkTheme = isDarkTheme,
+                    onToggleTheme = { isDarkTheme = !isDarkTheme }
                 )
+            }
+        ) { innerPadding ->
+            Column(
+                modifier = Modifier
+                    .padding(innerPadding)
+                    .fillMaxSize()
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                when {
+                    showAbout -> AboutScreen(onClose = { showAbout = false })
+                    currentScreen == "dada" -> LatihanDadaScreen(onBack = { currentScreen = "home" })
+                    currentScreen == "bahu" -> LatihanBahuScreen(onBack = { currentScreen = "home" })
+                    currentScreen == "tangan" -> LatihanTanganScreen(onBack = { currentScreen = "home" })
+                    currentScreen == "kaki" -> LatihanKakiScreen(onBack = { currentScreen = "home" })
+                    currentScreen == "perut" -> LatihanPerutScreen(onBack = { currentScreen = "home" })
+                    else -> HomeScreen(
+                        onLatihanDadaClick = { currentScreen = "dada" },
+                        onLatihanBahuClick = { currentScreen = "bahu" },
+                        onLatihanTanganClick = { currentScreen = "tangan" },
+                        onLatihanKakiClick = { currentScreen = "kaki" },
+                        onLatihanPerutClick = { currentScreen = "perut" }
+                    )
+                }
             }
         }
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppBarWithMenu(onAboutClick: () -> Unit, onBackToHome: () -> Unit) {
+fun AppBarWithMenu(
+    onAboutClick: () -> Unit,
+    onBackToHome: () -> Unit,
+    isDarkTheme: Boolean,
+    onToggleTheme: () -> Unit
+) {
     var menuExpanded by remember { mutableStateOf(false) }
 
     TopAppBar(
         title = {
             Text(
-                text = "Aplikasi Home Workout",
+                text = stringResource(id = R.string.app_title),
                 color = Color.White,
                 fontWeight = FontWeight.Bold
             )
@@ -103,7 +110,7 @@ fun AppBarWithMenu(onAboutClick: () -> Unit, onBackToHome: () -> Unit) {
                     onDismissRequest = { menuExpanded = false }
                 ) {
                     DropdownMenuItem(
-                        text = { Text("Tentang Aplikasi") },
+                        text = { Text(stringResource(id = R.string.menu_about)) },
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Info,
@@ -115,6 +122,20 @@ fun AppBarWithMenu(onAboutClick: () -> Unit, onBackToHome: () -> Unit) {
                             onAboutClick()
                         }
                     )
+                    DropdownMenuItem(
+                        text = {
+                            Text(
+                                if (isDarkTheme)
+                                    stringResource(id = R.string.theme_light)
+                                else
+                                    stringResource(id = R.string.theme_dark)
+                            )
+                        },
+                        onClick = {
+                            menuExpanded = false
+                            onToggleTheme()
+                        }
+                    )
                 }
             }
         },
@@ -123,6 +144,7 @@ fun AppBarWithMenu(onAboutClick: () -> Unit, onBackToHome: () -> Unit) {
         )
     )
 }
+
 
 @Composable
 fun HomeScreen(
@@ -176,18 +198,23 @@ fun AboutScreen(onClose: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
             .padding(16.dp)
     ) {
         Text(
             text = stringResource(id = R.string.about_app_title),
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onBackground
         )
         Spacer(modifier = Modifier.height(8.dp))
-        Text(text = stringResource(id = R.string.about_app_description))
+        Text(
+            text = stringResource(id = R.string.about_app_description),
+            color = MaterialTheme.colorScheme.onBackground
+        )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = stringResource(id = R.string.back),
-            color = Color.Blue,
+            color = MaterialTheme.colorScheme.primary,
             modifier = Modifier.clickable(onClick = onClose)
         )
     }

@@ -8,4 +8,8 @@
         \n\nuntuk membantu para pengguna untuk melakukan fitness dari rumah.
     </string>
     <string name="back">Kembali</string>
+    <string name="app_title">Aplikasi Home Workout</string>
+    <string name="menu_about">Tentang Aplikasi</string>
+    <string name="theme_dark">Mode Gelap</string>
+    <string name="theme_light">Mode Terang</string>
 </resources>
