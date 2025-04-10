@@ -1,28 +1,64 @@
 package com.bimo0064.assesment1_miniproject
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.res.stringResource
-import com.bimo0064.assesment1_miniproject.R
 import com.bimo0064.assesment1_miniproject.ui.theme.Assesment1_miniprojectTheme
+import java.util.Locale
 
 class MainActivity : ComponentActivity() {
+
+    companion object {
+        const val PREFS_NAME = "app_prefs"
+        const val KEY_LANGUAGE = "app_language"
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        val prefs = newBase.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val lang = prefs.getString(KEY_LANGUAGE, "en") ?: "en"
+        val context = LocaleContextWrapper.wrap(newBase, lang)
+        super.attachBaseContext(context)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -41,6 +77,12 @@ fun MyApp() {
     var currentScreen by remember { mutableStateOf("home") }
     var isDarkTheme by remember { mutableStateOf(false) }
 
+    val context = LocalContext.current
+    val prefs = context.getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE)
+    var selectedLanguage by rememberSaveable {
+        mutableStateOf(prefs.getString(MainActivity.KEY_LANGUAGE, "en") ?: "en")
+    }
+
     Assesment1_miniprojectTheme(darkTheme = isDarkTheme) {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
@@ -49,7 +91,12 @@ fun MyApp() {
                     onAboutClick = { showAbout = true },
                     onBackToHome = { currentScreen = "home" },
                     isDarkTheme = isDarkTheme,
-                    onToggleTheme = { isDarkTheme = !isDarkTheme }
+                    onToggleTheme = { isDarkTheme = !isDarkTheme },
+                    onChangeLanguage = { lang ->
+                        prefs.edit().putString(MainActivity.KEY_LANGUAGE, lang).apply()
+                        selectedLanguage = lang
+                        (context as Activity).recreate()
+                    }
                 )
             }
         ) { innerPadding ->
@@ -87,7 +134,8 @@ fun AppBarWithMenu(
     onAboutClick: () -> Unit,
     onBackToHome: () -> Unit,
     isDarkTheme: Boolean,
-    onToggleTheme: () -> Unit
+    onToggleTheme: () -> Unit,
+    onChangeLanguage: (String) -> Unit
 ) {
     var menuExpanded by remember { mutableStateOf(false) }
 
@@ -136,6 +184,20 @@ fun AppBarWithMenu(
                             onToggleTheme()
                         }
                     )
+                    DropdownMenuItem(
+                        text = { Text("English") },
+                        onClick = {
+                            menuExpanded = false
+                            onChangeLanguage("en")
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Indonesia") },
+                        onClick = {
+                            menuExpanded = false
+                            onChangeLanguage("id")
+                        }
+                    )
                 }
             }
         },
@@ -144,7 +206,6 @@ fun AppBarWithMenu(
         )
     )
 }
-
 
 @Composable
 fun HomeScreen(
@@ -156,17 +217,17 @@ fun HomeScreen(
 ) {
     Greeting(name = "Bimo")
     Spacer(modifier = Modifier.height(16.dp))
-    BarItem("Latihan Dada", onClick = onLatihanDadaClick)
-    BarItem("Latihan Bahu", onClick = onLatihanBahuClick)
-    BarItem("Latihan Tangan", onClick = onLatihanTanganClick)
-    BarItem("Latihan Kaki", onClick = onLatihanKakiClick)
-    BarItem("Latihan Perut", onClick = onLatihanPerutClick)
+    BarItem(stringResource(id = R.string.chest_workout), onClick = onLatihanDadaClick)
+    BarItem(stringResource(id = R.string.shoulder_workout), onClick = onLatihanBahuClick)
+    BarItem(stringResource(id = R.string.arm_workout), onClick = onLatihanTanganClick)
+    BarItem(stringResource(id = R.string.leg_workout), onClick = onLatihanKakiClick)
+    BarItem(stringResource(id = R.string.abs_workout), onClick = onLatihanPerutClick)
 }
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
-        text = "Ayo mulai latihan hari ini",
+        text = stringResource(id = R.string.greeting_message),
         modifier = modifier.padding(16.dp),
         color = Color.Gray,
         fontWeight = FontWeight.Bold
@@ -218,4 +279,15 @@ fun AboutScreen(onClose: () -> Unit) {
             modifier = Modifier.clickable(onClick = onClose)
         )
     }
+}
+
+@Composable
+fun updateLocale(context: Context, languageCode: String): Context {
+    val locale = Locale(languageCode)
+    Locale.setDefault(locale)
+
+    val config = context.resources.configuration
+    config.setLocale(locale)
+
+    return context.createConfigurationContext(config)
 }

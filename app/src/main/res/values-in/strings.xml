@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Assesment1_miniproject</string>
+    <string name="about_app_title">Tentang Aplikasi</string>
+    <string name="about_app_description">
+        Aplikasi ini bernama Home Workout, dirancang oleh:
+        \n\nBimo Chesta Adabi
+        \n607062300064
+        \n\nuntuk membantu pengguna melakukan rutinitas kebugaran dari rumah.
+    </string>
+    <string name="back">Kembali</string>
+    <string name="app_title">Aplikasi Latihan di Rumah</string>
+    <string name="menu_about">Tentang Aplikasi</string>
+    <string name="theme_dark">Mode Gelap</string>
+    <string name="theme_light">Mode Terang</string>
+    <string name="chest_workout">Latihan Dada</string>
+    <string name="shoulder_workout">Latihan Bahu</string>
+    <string name="arm_workout">Latihan Lengan</string>
+    <string name="leg_workout">Latihan Kaki</string>
+    <string name="abs_workout">Latihan Perut</string>
+    <string name="greeting_message">Ayo mulai latihan hari ini</string>
+    <string name="beginner">Pemula</string>
+    <string name="intermediate">Menengah</string>
+    <string name="hard">Sulit</string>
+    <string name="back_to_level">Kembali ke Pilihan</string>
+    <string name="rest_time_label">Waktu Istirahat (detik)</string>
+    <string name="rest_time_error">Masukkan waktu antara 1 dan 299 detik</string>
+    <string name="start_rest">Mulai Istirahat</string>
+    <string name="remaining_time">Waktu Istirahat</string>
+
+    <string name="beginner_exercises">1. Push up\n\n2. Incline Push up\n\n3. Kneeling Push up\n\n4. Chest Stretch</string>
+    <string name="intermediate_exercises">1. Decline Push up\n\n2. Wide Grip Push up\n\n3. Plyometric Push up\n\n4. Archer Push up</string>
+    <string name="hard_exercises">1. One-arm Push up\n\n2. Clap Push up\n\n3. Spiderman Push up\n\n4. Handstand Push up</string>
+
+<!--    bahu-->
+    <string name="shoulder_beginner_exercises">
+    1. Shoulder Press dengan Botol\n\n2. Lateral Raise Tanpa Beban\n\n3. Front Raise Tanpa Beban\n\n4. Shoulder Stretch
+</string>
+    <string name="shoulder_intermediate_exercises">
+    1. Pike Push-up\n\n2. Plank to Downward Dog\n\n3. Wall Walk\n\n4. Arm Circles
+</string>
+    <string name="shoulder_hard_exercises">
+    1. Handstand Push-up\n\n2. Clap Push-up\n\n3. Dive Bomber Push-up\n\n4. Single-arm Plank
+</string>
+
+<!--    kaki-->
+    <string name="leg_beginner_exercises">
+    1. Bodyweight Squat\n\n2. Lunges\n\n3. Glute Bridges\n\n4. Calf Raises
+</string>
+    <string name="leg_intermediate_exercises">
+    1. Jump Squats\n\n2. Bulgarian Split Squat\n\n3. Step-ups\n\n4. Single-leg Deadlift
+</string>
+    <string name="leg_hard_exercises">
+    1. Pistol Squat\n\n2. Box Jumps\n\n3. Barbell Squats\n\n4. Sumo Deadlift
+</string>
+
+<!--    tangan-->
+    <string name="arm_beginner_exercises" translatable="false">
+    1. Wall Push-up\n\n2. Tricep Dips\n\n3. Close Grip Push-up\n\n4. Arm Circles
+</string>
+    <string name="arm_intermediate_exercises" translatable="false">
+    1. Diamond Push-up\n\n2. Pike Push-up\n\n3. Plank to Push-up\n\n4. Elevated Push-up
+</string>
+    <string name="arm_hard_exercises" translatable="false">
+    1. One-arm Push-up\n\n2. Clap Push-up\n\n3. Archer Push-up\n\n4. Handstand Push-up
+</string>
+
+<!--    perut-->
+    <string name="abs_beginner_exercises" translatable="false">
+    1. Crunches\n\n2. Leg Raises\n\n3. Plank (30 detik)\n\n4. Bicycle Crunches
+</string>
+    <string name="abs_intermediate_exercises" translatable="false">
+    1. Russian Twists\n\n2. Plank (1 menit)\n\n3. Mountain Climbers\n\n4. Flutter Kicks
+</string>
+    <string name="abs_hard_exercises" translatable="false">
+    1. Hanging Leg Raises\n\n2. V-ups\n\n3. Plank to Push-up\n\n4. Ab Rollouts
+</string>
+</resources>

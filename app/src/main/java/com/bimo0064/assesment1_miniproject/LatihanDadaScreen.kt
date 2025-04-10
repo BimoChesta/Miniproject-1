@@ -9,8 +9,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
 
 @Composable
 fun LatihanDadaScreen(onBack: () -> Unit) {
@@ -22,14 +24,14 @@ fun LatihanDadaScreen(onBack: () -> Unit) {
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Latihan Dada", fontWeight = FontWeight.Bold)
+        Text(stringResource(id = R.string.chest_workout), fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
         Spacer(modifier = Modifier.height(24.dp))
 
         if (selectedLevel.isEmpty()) {
-            BarLevelDada("Pemula") { selectedLevel = "Pemula" }
-            BarLevelDada("Menengah") { selectedLevel = "Menengah" }
-            BarLevelDada("Sulit") { selectedLevel = "Sulit" }
+            BarLevelDada(title = stringResource(R.string.beginner)) { selectedLevel = "Pemula" }
+            BarLevelDada(title = stringResource(R.string.intermediate)) { selectedLevel = "Menengah" }
+            BarLevelDada(title = stringResource(R.string.hard)) { selectedLevel = "Sulit" }
         }
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -38,7 +40,6 @@ fun LatihanDadaScreen(onBack: () -> Unit) {
             "Pemula" -> PemulaScreen(onBack) { selectedLevel = "" }
             "Menengah" -> MenengahScreen(onBack) { selectedLevel = "" }
             "Sulit" -> SulitScreen(onBack) { selectedLevel = "" }
-            else -> {}
         }
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -51,7 +52,11 @@ fun LatihanDadaScreen(onBack: () -> Unit) {
                 .clickable { onBack() },
             contentAlignment = Alignment.Center
         ) {
-            Text("Kembali", color = Color.White, fontWeight = FontWeight.Bold)
+            Text(
+                text = stringResource(id = R.string.back),
+                color = Color.White,
+                fontWeight = FontWeight.Bold
+            )
         }
     }
 }
@@ -78,174 +83,51 @@ fun BarLevelDada(title: String, onClick: () -> Unit) {
 
 @Composable
 fun PemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
-    var inputTime by remember { mutableStateOf("") }
-    var remainingTime by remember { mutableStateOf(0) }
-    var isRunning by remember { mutableStateOf(false) }
-    var errorText by remember { mutableStateOf("") }
-
-    LaunchedEffect(isRunning) {
-        if (isRunning) {
-            while (remainingTime > 0) {
-                kotlinx.coroutines.delay(1000)
-                remainingTime--
-            }
-            isRunning = false
-        }
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.Start
-    ) {
-        Text("Pemula", fontWeight = FontWeight.Bold)
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            "1. Push up \n\n2. Incline Push up \n\n3. Kneeling Push up \n\n4. Chest Stretch",
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Button(onClick = onClose) {
-            Text("Kembali ke Pilihan")
-        }
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        OutlinedTextField(
-            value = inputTime,
-            onValueChange = {
-                if (it.all { char -> char.isDigit() }) {
-                    inputTime = it
-                }
-            },
-            label = { Text("Waktu Istirahat (detik)") },
-            singleLine = true,
-            isError = errorText.isNotEmpty(),
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        if (errorText.isNotEmpty()) {
-            Text(errorText, color = MaterialTheme.colorScheme.error)
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Button(
-            onClick = {
-                val input = inputTime.toIntOrNull()
-                if (input == null || input < 1 || input > 299) {
-                    errorText = "Masukkan waktu antara 1 dan 299 detik"
-                } else {
-                    remainingTime = input
-                    isRunning = true
-                    errorText = ""
-                }
-            },
-            enabled = !isRunning
-        ) {
-            Text("Mulai Istirahat")
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text("Waktu Istirahat: ${remainingTime}s")
-    }
+    WorkoutLevelScreen(
+        title = stringResource(id = R.string.beginner),
+        exercises = stringResource(id = R.string.beginner_exercises),
+        onClose = onClose
+    )
 }
-
-
 
 @Composable
 fun MenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
-    var inputTime by remember { mutableStateOf("") }
-    var remainingTime by remember { mutableStateOf(0) }
-    var isRunning by remember { mutableStateOf(false) }
-    var errorText by remember { mutableStateOf("") }
-
-    LaunchedEffect(isRunning) {
-        if (isRunning) {
-            while (remainingTime > 0) {
-                kotlinx.coroutines.delay(1000)
-                remainingTime--
-            }
-            isRunning = false
-        }
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.Start
-    ) {
-        Text("Menengah", fontWeight = FontWeight.Bold)
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            "1. Decline Push up \n\n2. Wide Grip Push up \n\n3. Plyometric Push up \n\n4. Archer Push up",
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Button(onClick = onClose) {
-            Text("Kembali ke Pilihan")
-        }
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        OutlinedTextField(
-            value = inputTime,
-            onValueChange = {
-                if (it.all { char -> char.isDigit() }) {
-                    inputTime = it
-                }
-            },
-            label = { Text("Waktu Istirahat (detik)") },
-            singleLine = true,
-            isError = errorText.isNotEmpty(),
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        if (errorText.isNotEmpty()) {
-            Text(errorText, color = MaterialTheme.colorScheme.error)
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Button(
-            onClick = {
-                val input = inputTime.toIntOrNull()
-                if (input == null || input < 1 || input > 299) {
-                    errorText = "Masukkan waktu antara 1 dan 299 detik"
-                } else {
-                    remainingTime = input
-                    isRunning = true
-                    errorText = ""
-                }
-            },
-            enabled = !isRunning
-        ) {
-            Text("Mulai Istirahat")
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text("Waktu Istirahat: ${remainingTime}s")
-    }
+    WorkoutLevelScreen(
+        title = stringResource(id = R.string.intermediate),
+        exercises = stringResource(id = R.string.intermediate_exercises),
+        onClose = onClose
+    )
 }
-
 
 @Composable
 fun SulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
+    WorkoutLevelScreen(
+        title = stringResource(id = R.string.hard),
+        exercises = stringResource(id = R.string.hard_exercises),
+        onClose = onClose
+    )
+}
+
+@Composable
+fun WorkoutLevelScreen(
+    title: String,
+    exercises: String,
+    onClose: () -> Unit
+) {
     var inputTime by remember { mutableStateOf("") }
     var remainingTime by remember { mutableStateOf(0) }
     var isRunning by remember { mutableStateOf(false) }
     var errorText by remember { mutableStateOf("") }
 
+    val restTimeError = stringResource(id = R.string.rest_time_error)
+    val restTimeLabel = stringResource(id = R.string.rest_time_label)
+    val startRestLabel = stringResource(id = R.string.start_rest)
+    val remainingTimeLabel = stringResource(id = R.string.remaining_time)
+
     LaunchedEffect(isRunning) {
         if (isRunning) {
             while (remainingTime > 0) {
-                kotlinx.coroutines.delay(1000)
+                delay(1000)
                 remainingTime--
             }
             isRunning = false
@@ -258,16 +140,13 @@ fun SulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
             .padding(16.dp),
         horizontalAlignment = Alignment.Start
     ) {
-        Text("Sulit", fontWeight = FontWeight.Bold)
+        Text(title, fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            "1. One-arm Push up \n\n2. Clap Push up \n\n3. Spiderman Push up \n\n4. Handstand Push up",
-            fontWeight = FontWeight.Bold
-        )
+        Text(exercises, fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(24.dp))
 
         Button(onClick = onClose) {
-            Text("Kembali ke Pilihan")
+            Text(stringResource(id = R.string.back_to_level))
         }
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -279,7 +158,7 @@ fun SulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
                     inputTime = it
                 }
             },
-            label = { Text("Waktu Istirahat (detik)") },
+            label = { Text(restTimeLabel) },
             singleLine = true,
             isError = errorText.isNotEmpty(),
             modifier = Modifier.fillMaxWidth()
@@ -295,7 +174,7 @@ fun SulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
             onClick = {
                 val input = inputTime.toIntOrNull()
                 if (input == null || input < 1 || input > 299) {
-                    errorText = "Masukkan waktu antara 1 dan 299 detik"
+                    errorText = restTimeError
                 } else {
                     remainingTime = input
                     isRunning = true
@@ -304,11 +183,11 @@ fun SulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
             },
             enabled = !isRunning
         ) {
-            Text("Mulai Istirahat")
+            Text(startRestLabel)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text("Waktu Istirahat: ${remainingTime}s")
+        Text("$remainingTimeLabel: ${remainingTime}s")
     }
 }

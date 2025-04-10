@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
@@ -23,22 +24,34 @@ fun LatihanBahuScreen(onBack: () -> Unit) {
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Latihan Bahu", fontWeight = FontWeight.Bold)
+        Text(stringResource(id = R.string.shoulder_workout), fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
         Spacer(modifier = Modifier.height(24.dp))
 
         if (selectedLevel.isEmpty()) {
-            BarLevelBahu("Pemula") { selectedLevel = "Pemula" }
-            BarLevelBahu("Menengah") { selectedLevel = "Menengah" }
-            BarLevelBahu("Sulit") { selectedLevel = "Sulit" }
+            BarLevelBahu(stringResource(id = R.string.beginner)) { selectedLevel = "Pemula" }
+            BarLevelBahu(stringResource(id = R.string.intermediate)) { selectedLevel = "Menengah" }
+            BarLevelBahu(stringResource(id = R.string.hard)) { selectedLevel = "Sulit" }
         }
 
         Spacer(modifier = Modifier.height(24.dp))
 
         when (selectedLevel) {
-            "Pemula" -> BahuPemulaScreen(onBack) { selectedLevel = "" }
-            "Menengah" -> BahuMenengahScreen(onBack) { selectedLevel = "" }
-            "Sulit" -> BahuSulitScreen(onBack) { selectedLevel = "" }
+            "Pemula" -> BahuLevelScreen(
+                title = stringResource(id = R.string.beginner),
+                exercises = stringResource(id = R.string.shoulder_beginner_exercises),
+                onClose = { selectedLevel = "" }
+            )
+            "Menengah" -> BahuLevelScreen(
+                title = stringResource(id = R.string.intermediate),
+                exercises = stringResource(id = R.string.shoulder_intermediate_exercises),
+                onClose = { selectedLevel = "" }
+            )
+            "Sulit" -> BahuLevelScreen(
+                title = stringResource(id = R.string.hard),
+                exercises = stringResource(id = R.string.shoulder_hard_exercises),
+                onClose = { selectedLevel = "" }
+            )
         }
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -51,7 +64,11 @@ fun LatihanBahuScreen(onBack: () -> Unit) {
                 .clickable { onBack() },
             contentAlignment = Alignment.Center
         ) {
-            Text("Kembali", color = Color.White, fontWeight = FontWeight.Bold)
+            Text(
+                text = stringResource(id = R.string.back),
+                color = Color.White,
+                fontWeight = FontWeight.Bold
+            )
         }
     }
 }
@@ -77,11 +94,16 @@ fun BarLevelBahu(title: String, onClick: () -> Unit) {
 }
 
 @Composable
-fun BahuPemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
+fun BahuLevelScreen(title: String, exercises: String, onClose: () -> Unit) {
     var inputTime by remember { mutableStateOf("") }
     var remainingTime by remember { mutableStateOf(0) }
     var isRunning by remember { mutableStateOf(false) }
     var errorText by remember { mutableStateOf("") }
+
+    val restTimeError = stringResource(id = R.string.rest_time_error)
+    val restTimeLabel = stringResource(id = R.string.rest_time_label)
+    val startRestLabel = stringResource(id = R.string.start_rest)
+    val remainingTimeLabel = stringResource(id = R.string.remaining_time)
 
     LaunchedEffect(isRunning) {
         if (isRunning) {
@@ -94,18 +116,18 @@ fun BahuPemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
     }
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         horizontalAlignment = Alignment.Start
     ) {
-        Text("Pemula", fontWeight = FontWeight.Bold)
+        Text(title, fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = "1. Shoulder Press dengan Botol\n\n2. Lateral Raise Tanpa Beban\n\n3. Front Raise Tanpa Beban\n\n4. Shoulder Stretch",
-            fontWeight = FontWeight.Bold
-        )
+        Text(exercises, fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(24.dp))
+
         Button(onClick = onClose) {
-            Text("Kembali ke Pilihan")
+            Text(stringResource(id = R.string.back_to_level))
         }
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -117,7 +139,7 @@ fun BahuPemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
                     inputTime = it
                 }
             },
-            label = { Text("Waktu Istirahat (detik)") },
+            label = { Text(restTimeLabel) },
             singleLine = true,
             isError = errorText.isNotEmpty(),
             modifier = Modifier.fillMaxWidth()
@@ -133,7 +155,7 @@ fun BahuPemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
             onClick = {
                 val input = inputTime.toIntOrNull()
                 if (input == null || input < 1 || input > 299) {
-                    errorText = "Masukkan waktu antara 1 dan 299 detik"
+                    errorText = restTimeError
                 } else {
                     remainingTime = input
                     isRunning = true
@@ -142,161 +164,11 @@ fun BahuPemulaScreen(onBack: () -> Unit, onClose: () -> Unit) {
             },
             enabled = !isRunning
         ) {
-            Text("Mulai Istirahat")
+            Text(startRestLabel)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text("Waktu Istirahat: ${remainingTime}s")
-    }
-}
-
-@Composable
-fun BahuMenengahScreen(onBack: () -> Unit, onClose: () -> Unit) {
-    var inputTime by remember { mutableStateOf("") }
-    var remainingTime by remember { mutableStateOf(0) }
-    var isRunning by remember { mutableStateOf(false) }
-    var errorText by remember { mutableStateOf("") }
-
-    LaunchedEffect(isRunning) {
-        if (isRunning) {
-            while (remainingTime > 0) {
-                delay(1000)
-                remainingTime--
-            }
-            isRunning = false
-        }
-    }
-
-    Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
-        horizontalAlignment = Alignment.Start
-    ) {
-        Text("Menengah", fontWeight = FontWeight.Bold)
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = "1. Pike Push-up\n\n2. Plank to Downward Dog\n\n3. Wall Walk\n\n4. Arm Circles",
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(modifier = Modifier.height(24.dp))
-        Button(onClick = onClose) {
-            Text("Kembali ke Pilihan")
-        }
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        OutlinedTextField(
-            value = inputTime,
-            onValueChange = {
-                if (it.all { char -> char.isDigit() }) {
-                    inputTime = it
-                }
-            },
-            label = { Text("Waktu Istirahat (detik)") },
-            singleLine = true,
-            isError = errorText.isNotEmpty(),
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        if (errorText.isNotEmpty()) {
-            Text(errorText, color = MaterialTheme.colorScheme.error)
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Button(
-            onClick = {
-                val input = inputTime.toIntOrNull()
-                if (input == null || input < 1 || input > 299) {
-                    errorText = "Masukkan waktu antara 1 dan 299 detik"
-                } else {
-                    remainingTime = input
-                    isRunning = true
-                    errorText = ""
-                }
-            },
-            enabled = !isRunning
-        ) {
-            Text("Mulai Istirahat")
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text("Waktu Istirahat: ${remainingTime}s")
-    }
-}
-
-@Composable
-fun BahuSulitScreen(onBack: () -> Unit, onClose: () -> Unit) {
-    var inputTime by remember { mutableStateOf("") }
-    var remainingTime by remember { mutableStateOf(0) }
-    var isRunning by remember { mutableStateOf(false) }
-    var errorText by remember { mutableStateOf("") }
-
-    LaunchedEffect(isRunning) {
-        if (isRunning) {
-            while (remainingTime > 0) {
-                delay(1000)
-                remainingTime--
-            }
-            isRunning = false
-        }
-    }
-
-    Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
-        horizontalAlignment = Alignment.Start
-    ) {
-        Text("Sulit", fontWeight = FontWeight.Bold)
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = "1. Handstand Push-up\n\n2. Clap Push-up\n\n3. Dive Bomber Push-up\n\n4. Single-arm Plank",
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(modifier = Modifier.height(24.dp))
-        Button(onClick = onClose) {
-            Text("Kembali ke Pilihan")
-        }
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        OutlinedTextField(
-            value = inputTime,
-            onValueChange = {
-                if (it.all { char -> char.isDigit() }) {
-                    inputTime = it
-                }
-            },
-            label = { Text("Waktu Istirahat (detik)") },
-            singleLine = true,
-            isError = errorText.isNotEmpty(),
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        if (errorText.isNotEmpty()) {
-            Text(errorText, color = MaterialTheme.colorScheme.error)
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Button(
-            onClick = {
-                val input = inputTime.toIntOrNull()
-                if (input == null || input < 1 || input > 299) {
-                    errorText = "Masukkan waktu antara 1 dan 299 detik"
-                } else {
-                    remainingTime = input
-                    isRunning = true
-                    errorText = ""
-                }
-            },
-            enabled = !isRunning
-        ) {
-            Text("Mulai Istirahat")
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text("Waktu Istirahat: ${remainingTime}s")
+        Text("$remainingTimeLabel: ${remainingTime}s")
     }
 }
