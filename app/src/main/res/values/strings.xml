@@ -26,6 +26,7 @@
     <string name="rest_time_error" translatable="false">Enter time between 1 and 299 seconds</string>
     <string name="start_rest" translatable="false">Start Rest</string>
     <string name="remaining_time" translatable="false">Rest Time</string>
+    <string name="double_tap_exit">Tap twice to exit</string>
 
 <!--    dada-->
     <string name="beginner_exercises" translatable="false">1. Push up\n\n2. Incline Push up\n\n3. Kneeling Push up\n\n4. Chest Stretch</string>

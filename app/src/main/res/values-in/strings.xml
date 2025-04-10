@@ -27,6 +27,8 @@
     <string name="rest_time_error">Masukkan waktu antara 1 dan 299 detik</string>
     <string name="start_rest">Mulai Istirahat</string>
     <string name="remaining_time">Waktu Istirahat</string>
+    <string name="double_tap_exit">Ketuk dua kali untuk keluar</string>
+
 
     <string name="beginner_exercises">1. Push up\n\n2. Incline Push up\n\n3. Kneeling Push up\n\n4. Chest Stretch</string>
     <string name="intermediate_exercises">1. Decline Push up\n\n2. Wide Grip Push up\n\n3. Plyometric Push up\n\n4. Archer Push up</string>

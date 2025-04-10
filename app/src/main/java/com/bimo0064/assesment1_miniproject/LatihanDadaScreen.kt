@@ -24,7 +24,11 @@ fun LatihanDadaScreen(onBack: () -> Unit) {
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(stringResource(id = R.string.chest_workout), fontWeight = FontWeight.Bold)
+        Text(
+            text = stringResource(id = R.string.chest_workout),
+            fontWeight = FontWeight.Bold
+        )
+
         Spacer(modifier = Modifier.height(8.dp))
         Spacer(modifier = Modifier.height(24.dp))
 
@@ -44,19 +48,21 @@ fun LatihanDadaScreen(onBack: () -> Unit) {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Box(
-            modifier = Modifier
-                .background(Color.Black)
-                .fillMaxWidth()
-                .padding(vertical = 12.dp)
-                .clickable { onBack() },
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = stringResource(id = R.string.back),
-                color = Color.White,
-                fontWeight = FontWeight.Bold
-            )
+        if (selectedLevel.isEmpty()) {
+            Box(
+                modifier = Modifier
+                    .background(Color.Black)
+                    .fillMaxWidth()
+                    .padding(vertical = 12.dp)
+                    .clickable { onBack() },
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = stringResource(id = R.string.back),
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
     }
 }

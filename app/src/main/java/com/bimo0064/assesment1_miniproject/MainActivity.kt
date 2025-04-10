@@ -3,14 +3,17 @@ package com.bimo0064.assesment1_miniproject
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.Image
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
@@ -65,11 +68,34 @@ fun MyApp() {
         mutableStateOf(prefs.getString(MainActivity.KEY_LANGUAGE, "en") ?: "en")
     }
 
+    var backPressedTime by remember { mutableLongStateOf(0L) }
+
+    if (currentScreen == "home" && !showAbout) {
+        BackHandler {
+            val currentTime = System.currentTimeMillis()
+            if (currentTime - backPressedTime < 2000) {
+                (context as Activity).finish()
+            } else {
+                backPressedTime = currentTime
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.double_tap_exit),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
     Assesment1_miniprojectTheme(darkTheme = isDarkTheme) {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = {
                 AppBarWithMenu(
+                    canGoBack = currentScreen != "home" || showAbout,
+                    onBack = {
+                        if (showAbout) showAbout = false
+                        else currentScreen = "home"
+                    },
                     onAboutClick = { showAbout = true },
                     isDarkTheme = isDarkTheme,
                     onToggleTheme = { isDarkTheme = !isDarkTheme },
@@ -111,6 +137,8 @@ fun MyApp() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppBarWithMenu(
+    canGoBack: Boolean,
+    onBack: () -> Unit,
     onAboutClick: () -> Unit,
     isDarkTheme: Boolean,
     onToggleTheme: () -> Unit,
@@ -127,57 +155,69 @@ fun AppBarWithMenu(
             )
         },
         navigationIcon = {
-            Box {
-                IconButton(onClick = { menuExpanded = true }) {
-                    Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu")
-                }
-
-                DropdownMenu(
-                    expanded = menuExpanded,
-                    onDismissRequest = { menuExpanded = false }
-                ) {
-                    DropdownMenuItem(
-                        text = { Text(stringResource(id = R.string.menu_about)) },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Default.Info,
-                                contentDescription = "Tentang"
-                            )
-                        },
-                        onClick = {
-                            menuExpanded = false
-                            onAboutClick()
-                        }
-                    )
-                    DropdownMenuItem(
-                        text = {
-                            Text(
-                                if (isDarkTheme)
-                                    stringResource(id = R.string.theme_light)
-                                else
-                                    stringResource(id = R.string.theme_dark)
-                            )
-                        },
-                        onClick = {
-                            menuExpanded = false
-                            onToggleTheme()
-                        }
-                    )
-                    DropdownMenuItem(
-                        text = { Text("English") },
-                        onClick = {
-                            menuExpanded = false
-                            onChangeLanguage("en")
-                        }
-                    )
-                    DropdownMenuItem(
-                        text = { Text("Indonesia") },
-                        onClick = {
-                            menuExpanded = false
-                            onChangeLanguage("id")
-                        }
+            if (canGoBack) {
+                IconButton(onClick = onBack) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back",
+                        tint = Color.White
                     )
                 }
+            }
+        },
+        actions = {
+            IconButton(onClick = { menuExpanded = true }) {
+                Icon(
+                    imageVector = Icons.Default.Menu,
+                    contentDescription = "Menu",
+                    tint = Color.White
+                )
+            }
+            DropdownMenu(
+                expanded = menuExpanded,
+                onDismissRequest = { menuExpanded = false }
+            ) {
+                DropdownMenuItem(
+                    text = { Text(stringResource(id = R.string.menu_about)) },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.Info,
+                            contentDescription = "Tentang"
+                        )
+                    },
+                    onClick = {
+                        menuExpanded = false
+                        onAboutClick()
+                    }
+                )
+                DropdownMenuItem(
+                    text = {
+                        Text(
+                            if (isDarkTheme)
+                                stringResource(id = R.string.theme_light)
+                            else
+                                stringResource(id = R.string.theme_dark)
+                        )
+                    },
+                    onClick = {
+                        menuExpanded = false
+                        onToggleTheme()
+                    }
+                )
+                DropdownMenuItem(
+                    text = { Text("English") },
+                    onClick = {
+                        menuExpanded = false
+                        onChangeLanguage("en")
+                    }
+                )
+                DropdownMenuItem(
+                    text = { Text("Indonesia") },
+                    onClick = {
+                        menuExpanded = false
+                        onChangeLanguage("id")
+                    }
+                )
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
@@ -188,6 +228,7 @@ fun AppBarWithMenu(
         )
     )
 }
+
 
 @Composable
 fun HomeScreen(
